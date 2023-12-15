@@ -4,7 +4,7 @@ import React from "react";
 
 export default function Pricing() {
   return (
-    <div>
+    <div className="p-5">
       <ClipPath />
       <div className="mx-auto max-w-2xl py-10 sm:py-16 lg:py-24">
         <div className="mx-auto max-w-2xl sm:text-center">
