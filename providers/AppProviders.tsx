@@ -2,16 +2,19 @@
 
 import { ReactNode } from "react";
 import { ThemeProvider } from "./themeProvider/ThemeProvider";
+import ClientProvider from "./authProvider/AuthProvider";
 
 export function AppProviders({ children }: { children: ReactNode }) {
   return (
-    <ThemeProvider
-      attribute="class"
-      defaultTheme="system"
-      enableSystem
-      disableTransitionOnChange
-    >
-      {children}
-    </ThemeProvider>
+    <ClientProvider>
+      <ThemeProvider
+        attribute="class"
+        defaultTheme="system"
+        enableSystem
+        disableTransitionOnChange
+      >
+        {children}
+      </ThemeProvider>
+    </ClientProvider>
   );
 }
