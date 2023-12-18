@@ -8,7 +8,7 @@ import CheckoutButton from "./CheckoutButton";
 const tiers = [
   {
     name: "Starter",
-    id: null,
+    id: "free",
     href: "#",
     priceMonthly: null,
     description: "Get chatting right away with anyone!",
@@ -22,9 +22,9 @@ const tiers = [
   },
   {
     name: "Pro",
-    id: "123123",
+    id: "pro",
     href: "#",
-    priceMonthly: "$3.99",
+    priceMonthly: "4.99zł",
     description: "Unlock the Full Potential with Pro!",
     features: [
       "Unlimited messages in Chats",
@@ -79,7 +79,7 @@ export default function PricingCards({ redirect }: { redirect: boolean }) {
                 Get started today
               </Link>
             ) : (
-              tier.id && <CheckoutButton />
+              tier.priceMonthly && <CheckoutButton />
             )}
           </div>
         ))}
