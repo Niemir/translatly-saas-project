@@ -33,7 +33,7 @@ export default function CheckoutButton() {
       const url = data?.url;
       const error = data?.error;
       if (error) {
-        alert("An error occured: ", error?.message);
+        alert("An error occured ");
       }
       if (url) {
         // We have a stripe checkout url
