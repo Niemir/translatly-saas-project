@@ -13,14 +13,14 @@ import {
 import { LanguageSupported, LanguageSupportedMap } from "@/types/Language";
 import LoadingSpinner from "./LoadingSpinner";
 import Link from "next/link";
+import { isProUser } from "@/lib/utils";
 
 export default function LanguageSelect() {
   const { language, setLanguage, getLanguages, getNotSupportedLanguages } =
     useLanguageStore((state) => state);
   const subscription = useSubscriptionStore((state) => state.subscription);
 
-  const isPro =
-    subscription?.role === "pro" && subscription.status === "active";
+  const isPro = isProUser(subscription);
 
   const pathName = usePathname();
 

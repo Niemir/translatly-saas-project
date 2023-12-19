@@ -16,23 +16,26 @@ export default async function Header() {
     <header className="sticky top-0 z-50 bg-white dark:bg-gray-900 ">
       <nav className="flex flex-col sm:flex-row items-center p-5 pl-2  gap-4 max-w-7xl mx-auto">
         <Logo />
-        <div className="flex-1 flex items-center justify-end space-x-4 ">
+        <div className="flex-1 flex flex-col sm:flex-row items-center justify-end space-y-2 sm:space-y-0">
           {/* lang select */}
-          <LanguageSelect />
+          <div className="flex items-center space-x-2 ">
+            <LanguageSelect />
 
-          {session ? (
-            <>
-              <Link href="/chat" prefetch={false}>
-                <MessagesSquareIcon className="text-black dark:text-white" />
-              </Link>
-              <CreatChatButton />
-            </>
-          ) : (
-            <Link href="/pricing">Pricing</Link>
-          )}
-
-          <DarkModeToggle />
-          <UserButton session={session} />
+            {session ? (
+              <>
+                <Link href="/chat" prefetch={false}>
+                  <MessagesSquareIcon className="text-black dark:text-white" />
+                </Link>
+                <CreatChatButton />
+              </>
+            ) : (
+              <Link href="/pricing">Pricing</Link>
+            )}
+          </div>
+          <div className="flex space-x-2 ">
+            <DarkModeToggle />
+            <UserButton session={session} />
+          </div>
         </div>
       </nav>
 

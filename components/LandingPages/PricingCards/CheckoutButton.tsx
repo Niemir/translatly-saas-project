@@ -3,6 +3,7 @@ import LoadingSpinner from "@/components/LoadingSpinner";
 import ManageAccountButton from "@/components/ManageAccountButton";
 import { Button } from "@/components/ui/button";
 import { db } from "@/firebase";
+import { isProUser } from "@/lib/utils";
 import { useSubscriptionStore } from "@/stores/subscription";
 import { addDoc, collection, onSnapshot } from "firebase/firestore";
 import { useSession } from "next-auth/react";
@@ -13,8 +14,7 @@ export default function CheckoutButton() {
   const [loading, setLoading] = useState(false);
   const subscription = useSubscriptionStore((state) => state.subscription);
   const isLoadingSubscription = subscription === undefined;
-  const isSubscribed =
-    subscription?.status === "active" && subscription?.role === "pro";
+  const isSubscribed = isProUser(subscription);
   const createCheckoutSession = async () => {
     if (!session?.user.id) {
       return;

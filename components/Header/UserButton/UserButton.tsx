@@ -15,6 +15,7 @@ import { useSubscriptionStore } from "@/stores/subscription";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import { SparklesIcon, StarIcon } from "lucide-react";
 import ManageAccountButton from "@/components/ManageAccountButton";
+import { isProUser } from "@/lib/utils";
 type Props = {
   session: Session | null;
 };
@@ -41,7 +42,7 @@ export default function UserButton({ session }: Props) {
             <LoadingSpinner />
           </DropdownMenuItem>
         )}
-        {subscription?.role === "pro" && (
+        {isProUser(subscription) && (
           <>
             <DropdownMenuLabel className="text-xs flex items-center justify-center space-x-1 text-[#9333ea] ">
               <SparklesIcon fill="#9333ea" />
