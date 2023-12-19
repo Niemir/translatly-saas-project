@@ -1,6 +1,9 @@
 "use client";
+import LoadingSpinner from "@/components/LoadingSpinner";
+import ManageAccountButton from "@/components/ManageAccountButton";
 import { Button } from "@/components/ui/button";
 import { db } from "@/firebase";
+import { useSubscriptionStore } from "@/stores/subscription";
 import { addDoc, collection, onSnapshot } from "firebase/firestore";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
@@ -8,6 +11,10 @@ import { useState } from "react";
 export default function CheckoutButton() {
   const { data: session } = useSession();
   const [loading, setLoading] = useState(false);
+  const subscription = useSubscriptionStore((state) => state.subscription);
+  const isLoadingSubscription = subscription === undefined;
+  const isSubscribed =
+    subscription?.status === "active" && subscription?.role === "pro";
   const createCheckoutSession = async () => {
     if (!session?.user.id) {
       return;
@@ -41,10 +48,24 @@ export default function CheckoutButton() {
       <Button
         onClick={() => createCheckoutSession()}
         variant={"secondary"}
+        disabled={isLoadingSubscription || loading}
         className="mt-6 w-full bg-purple-600 text-white hover:bg-purple-800"
       >
-        {loading ? "loading..." : "Sing up"}
+        {isSubscribed ? (
+          <ManageAccountButton />
+        ) : isLoadingSubscription || loading ? (
+          <LoadingSpinner />
+        ) : (
+          "Sing up"
+        )}
       </Button>
+
+      {subscription?.canceled_at && (
+        <p className="text-xs text-gray-500 mt-2">
+          Your subscription will be cancelled at{" "}
+          {subscription?.cancel_at?.toDate().toDateString()}
+        </p>
+      )}
     </div>
   );
 }
