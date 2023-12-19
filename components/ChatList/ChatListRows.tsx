@@ -35,7 +35,8 @@ export default function ChatListRows({
   }
   console.log(members);
   return (
-    <div>
+    <div className="flex flex-col gap-2 p-5">
+      <h2 className="text-2xl mb-2">Choose Chat</h2>
       {members?.map((member) => (
         <ChatListRow key={member.chatId} chatId={member.chatId} />
       ))}

@@ -9,7 +9,7 @@ export default function Hero() {
       <ClipPath />
       <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
         <div className="text-center">
-          <h1 className="text-4xl font-bold tracking-tight text-gray-900 dark:text-purple-50 sm:text-6xl">
+          <h1 className=" text-4xl font-bold tracking-tight text-gray-900 dark:text-purple-50 sm:text-6xl">
             Global Conversations <br />
             in every Language!
           </h1>
