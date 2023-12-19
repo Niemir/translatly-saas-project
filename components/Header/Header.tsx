@@ -18,7 +18,7 @@ export default async function Header() {
         <Logo />
         <div className="flex-1 flex flex-col sm:flex-row items-center justify-end space-y-2 sm:space-y-0">
           {/* lang select */}
-          <div className="flex items-center space-x-2 ">
+          <div className="flex items-center gap-2 ">
             <LanguageSelect />
 
             {session ? (
@@ -29,7 +29,9 @@ export default async function Header() {
                 <CreatChatButton />
               </>
             ) : (
-              <Link href="/pricing">Pricing</Link>
+              <Link href="/pricing" className="block mr-2">
+                Pricing
+              </Link>
             )}
           </div>
           <div className="flex space-x-2 ">
