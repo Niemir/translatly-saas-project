@@ -5,8 +5,9 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/auth/options";
 import Link from "next/link";
 import { MessagesSquareIcon } from "lucide-react";
-import CreatChatButton from "./CreatChatButton";
+import CreatChatButton from "../CreatChatButton";
 import UpgradeBanner from "./UpgradeBanner";
+import LanguageSelect from "../LanguageSelect";
 
 export default async function Header() {
   const session = await getServerSession(authOptions);
@@ -17,6 +18,7 @@ export default async function Header() {
         <Logo />
         <div className="flex-1 flex items-center justify-end space-x-4 ">
           {/* lang select */}
+          <LanguageSelect />
 
           {session ? (
             <>
