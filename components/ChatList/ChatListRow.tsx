@@ -21,7 +21,7 @@ export default function ChatListRow({ chatId }: { chatId: string }) {
     <div
       key={chatId}
       onClick={() => router.push(`/chat/${chatId}`)}
-      className="flex p-5 items-center space-x-2 cursor-pointer hover:bg-gray-100 dark:hover:bg-slate-700"
+      className="flex p-5 items-center space-x-2 cursor-pointer hover:bg-gray-100 dark:hover:bg-slate-700 border rounded-2xl"
     >
       <UserAvatar
         name={message?.user.name || session?.user.name}

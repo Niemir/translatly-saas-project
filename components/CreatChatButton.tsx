@@ -9,8 +9,13 @@ import { useToast } from "./ui/use-toast";
 import { useSubscriptionStore } from "@/stores/subscription";
 import LoadingSpinner from "./LoadingSpinner";
 import { v4 as uuidv4 } from "uuid";
-import { serverTimestamp, setDoc } from "firebase/firestore";
-import { addChatRef } from "@/lib/converters/ChatMembers";
+import { getDocs, serverTimestamp, setDoc } from "firebase/firestore";
+import {
+  addChatRef,
+  chatMemberCollectionGroupRef,
+} from "@/lib/converters/ChatMembers";
+import { isProUser } from "@/lib/utils";
+import { ToastAction } from "./ui/toast";
 
 export default function CreatChatButton({ isLarge }: { isLarge?: boolean }) {
   const { data: session } = useSession();
@@ -30,6 +35,30 @@ export default function CreatChatButton({ isLarge }: { isLarge?: boolean }) {
     });
 
     const chatId = uuidv4();
+
+    const countOfUserChats = (
+      await getDocs(chatMemberCollectionGroupRef(session.user.id))
+    ).docs.map((doc) => doc.id).length;
+    console.log("countOfUserChats  ", countOfUserChats);
+    const isPro = isProUser(subscription);
+
+    if (!isPro && countOfUserChats >= 3) {
+      toast({
+        title: "Free plan limit exceeded",
+        description:
+          "You've exceeded the maximum count of chats in a FREE plan. Upgrade to PRO for unlimited chats.",
+        variant: "destructive",
+        action: (
+          <ToastAction
+            altText="Upgrade"
+            onClick={() => router.push("/register")}
+          >
+            Upgrade to PRO
+          </ToastAction>
+        ),
+      });
+      return;
+    }
 
     try {
       await setDoc(addChatRef(chatId, session.user.id), {

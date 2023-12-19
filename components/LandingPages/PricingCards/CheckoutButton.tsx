@@ -41,15 +41,22 @@ export default function CheckoutButton() {
         setLoading(false);
       }
     });
-    // if(session.)
   };
   return (
     <div>
+      {isSubscribed && (
+        <>
+          <hr className="mt-5" />
+          <p className="pt-5 text-center text-xs text-indigo-600">
+            You are subscribed to PRO
+          </p>
+        </>
+      )}
       <Button
         onClick={() => createCheckoutSession()}
         variant={"secondary"}
         disabled={isLoadingSubscription || loading}
-        className="mt-6 w-full bg-purple-600 text-white hover:bg-purple-800"
+        className="mt-5 w-full bg-purple-600 text-white hover:bg-purple-800"
       >
         {isSubscribed ? (
           <ManageAccountButton />

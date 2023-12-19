@@ -50,7 +50,7 @@ export default function ChatInput({ chatId }: { chatId: string }) {
       return;
     }
     const messagesCount = (await getDocs(limitedMessagesRef(chatId))).docs.map(
-      (doc) => doc.data()
+      (doc) => doc.id
     ).length;
     const isPro = isProUser(subscription);
 
@@ -58,7 +58,7 @@ export default function ChatInput({ chatId }: { chatId: string }) {
       toast({
         title: "Free plan limit exceeded",
         description:
-          "You've exceeded the FREE plan limit of 20 messages per chat. Upgrade to PRo for unlimited chat messages.",
+          "You've exceeded the FREE plan limit of 20 messages per chat. Upgrade to PRO for unlimited chat messages.",
         variant: "destructive",
         action: (
           <ToastAction
@@ -69,6 +69,7 @@ export default function ChatInput({ chatId }: { chatId: string }) {
           </ToastAction>
         ),
       });
+      return;
     }
 
     const userToStore: User = {
@@ -85,32 +86,34 @@ export default function ChatInput({ chatId }: { chatId: string }) {
     });
   }
   return (
-    <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="flex p-2 space-x-2 rounded-t-xl max-w-4xl mx-auto bg-white border dark:bg-slate-800"
-      >
-        <FormField
-          control={form.control}
-          name="input"
-          render={({ field }) => (
-            <FormItem className="flex-1">
-              <FormControl>
-                <Input
-                  className="border-none bg-transparent dark:placeholder:text-white/70"
-                  placeholder="Enter message in ANY language..."
-                  {...field}
-                />
-              </FormControl>
+    <div className="">
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="flex flex-col sm:flex-row gap-3 p-2 rounded-t-xl max-w-4xl mx-auto bg-white border dark:bg-slate-800"
+        >
+          <FormField
+            control={form.control}
+            name="input"
+            render={({ field }) => (
+              <FormItem className="flex-1">
+                <FormControl>
+                  <Input
+                    className="border-none bg-transparent dark:placeholder:text-white/70"
+                    placeholder="Enter message in ANY language..."
+                    {...field}
+                  />
+                </FormControl>
 
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <Button type="submit">
-          Send <SendIcon className="ml-2" />
-        </Button>
-      </form>
-    </Form>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <Button type="submit">
+            Send <SendIcon className="ml-2" />
+          </Button>
+        </form>
+      </Form>
+    </div>
   );
 }
